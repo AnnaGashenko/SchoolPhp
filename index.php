@@ -6,19 +6,19 @@ if(Core::$HTTPS && (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != 'on')) {
 	header("Location: ".Core::$DOMAIN.($_SERVER['REQUEST_URI'] ?? ''),TRUE,301);
 	exit;
 }
-if(Core::$STATUS == 0) {
+if(Core::$STATUS == 0) { // рабочий сайт
 	error_reporting(0);
 	ini_set('display_errors',0);
 	ini_set('display_startup_errors',0);
 } else {
-	error_reporting(-1);
+	error_reporting(-1); // на этапе разработки
 	ini_set('display_errors',1);
 	ini_set('display_startup_errors',1);
 }
-Core::$ROOT = __DIR__;
+Core::$ROOT = __DIR__; // путь от корня
 $t = microtime(true);
 
-include './vendor/autoload.php';
+include './vendor/autoload.php'; // подключение composer
 include './vendor/schoolphp/library/Core/functions.php';
 
 if(Core::$STUBROUTINE['status']) {
