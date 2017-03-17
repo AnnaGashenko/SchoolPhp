@@ -10,4 +10,20 @@ at file C:\OpenServer\domains\school\public\index.php in line 210
 at file C:\OpenServer\domains\school\public\index.php in line 210
 =================================================
 
+2017-03-16 16:41:26: Warning: [require_once(./ООП_6_TRAIT.php): failed to open stream: No such file or directory]
+at file C:\OpenServer\domains\school\public\index.php in line 48
+=================================================
+
+2017-03-16 16:41:26: Complite error: [require_once(): Failed opening required './ООП_6_TRAIT.php' (include_path='.;c:/openserver/modules/php/PHP-7.0;c:/openserver/modules/php/PHP-7.0/PEAR/pear')]
+at file C:\OpenServer\domains\school\public\index.php in line 48
+=================================================
+
+2017-03-17 10:43:21: Parse: [syntax error, unexpected '$auto' (T_VARIABLE), expecting ',' or ';']
+at file C:\OpenServer\domains\school\public\21_abstract_class.php in line 28
+=================================================
+
+2017-03-17 14:30:59: Parse: [syntax error, unexpected end of file]
+at file C:\OpenServer\domains\school\public\23_Pattern_Strategy.php in line 51
+=================================================
+
 
