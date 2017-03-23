@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * Factory Method (Фабричный метод), называют также как Виртуальный констрктор
  * Шаблон проектирования "Фабрика"(Pattern Factory).
  * У нас есть какой-то абстрактный класс,
  * от которого наследуются другие классы: HTMLRenderer и XMLRenderer,
@@ -43,3 +44,60 @@ function RendererFactory() {
 $renderer = RendererFactory();
 $renderer->setDocument("Some content...");
 $renderer->render();
+
+/**
+ * В зависимости от того что передали в CacheVar, получаем нужный ответ
+ * Фабрика- это посредник между A и B
+ * Мы запрашиваем то, что мы хотим, а нам возвращается нужный нам класс
+ * Хотим кешировать в файл передаем формат файл
+ * Хотис в MySQL передаем формат MySQL
+
+$var =  1;
+$cache = new CacheVar('File'); // записали кеш в файл
+$cache->set($var,'key');
+$cache->get('key');
+
+function ($method) {
+    if($method == 'File') {
+        return new CacheVarFile;
+    } elseif ($method == 'MySQL') {
+        return new CacheVarMySQL;
+    } else {
+        throw new \Exception('Не верный формат');
+    }
+}
+
+*/
+
+namespace MyCache;
+
+class CacheFactory
+{
+    static function Initial($class) {
+        $classname = '\\Cache\\Cache'.$class;
+        return new $classname;
+    }
+}
+
+
+/**
+ * Прямое использование интерфейса
+ */
+ interface CacheInterface
+{
+    public function getItem($key);
+    public function setItem($key,$value);
+
+}
+
+class CacheFile implements CacheInterface
+{
+    public function getItem($key) {
+        // TODO: Implement getItem() method.
+    }
+    public function setItem($key,$value) {
+        // TODO: Implement setItem() method.
+    }
+}
+
+\MyCache\CacheFactory::Initial('File');
