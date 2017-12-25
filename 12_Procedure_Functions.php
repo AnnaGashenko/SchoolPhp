@@ -34,9 +34,9 @@
     DECLARE t VARCHAR(100);
 
     WHILE i < mycount DO
-    SET t = CONCAT('text',1);
-    INSERT INTO `bigtable` SET `text` = t;
-    SET i = i + 1;
+        SET t = CONCAT('text',1);
+        INSERT INTO `bigtable` SET `text` = t;
+        SET i = i + 1;
     END WHILE;
 
     END |
