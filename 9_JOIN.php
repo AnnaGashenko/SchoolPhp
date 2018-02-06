@@ -35,6 +35,7 @@ q("
 ");
 
 /**
+ * SUBQUERIES - ПОДЗАПРОСЫ
  * Запрос с подзапросом. Дополнительный запрос пишется в скобках
  * Здесь нет связей как в JOIN это просто два запроса выводятся в одну таблицу
  */
@@ -73,3 +74,71 @@ q("
     AND
     CONCAT (LAST_DAY(NOW() - INTERVAL 1 MONTH),' 23:59:59')
 ");
+
+
+q("
+    SELECT FirstName+ '' +LastName as Name, BirthDate
+    FROM Person.Person as pc
+    JOIN HumanResources.Employee as he
+    ON pc.BusinessEntityID = he.BusinessEntityID
+    WHERE BirthDate = (
+      SELECT MIN (BirthDate) FROM HumanResources.Employee
+    )
+");
+
+
+/**
+ * Подзапросы также могут возвращать списки
+ * в начале выполняется вложенный запрос который найдет все цвета с id = 5
+ * второй запрос выберет все цвета, кроме тех которые попали в список из вложеного запроса
+ */
+q("
+    SELECT ProductID, Name
+    From Product
+    WHERE Color NOT IN (
+      SELECT Color
+      FROM Product
+      WHERE  ProductID = 5
+    )
+");
+
+
+/**
+ * Связанные подзапросы
+ * Related Subqueries
+ * Подзапрос является связанным, если в нем
+ * (в предложениях WHERE, HAVING )
+ * указан столбец таблицы внешнего запроса.
+ */
+q("
+    SELECT ord1.OrderDate
+    From Order AS ord1
+    WHERE ord1.OrderDate = (
+      SELECT MIN (OrderDate)
+      FROM Order AS ord2
+      WHERE otd2.CustomerID = ord1.CustomerID
+    )
+");
+
+q("
+    SELECT FirstName + ' ' + LastName as Name, BirthDate
+    FROM Person.Person as pc   -- Person - схема (аналог пространства имен)   
+    JOIN HumanResources.Employee as he 
+    ON pc.BusinessEntityID = he.BusinessEntityID
+    WHERE BirthDate = '1945-11-17'
+");
+
+
+// Вложенные запросы можно применять совместно с JOIN's
+q("
+    SELECT FirstName + ' ' + LastName as Name, BirthDate 
+    FROM Person.Person as pc       
+    JOIN HumanResources.Employee as he 
+    ON pc.BusinessEntityID = he.BusinessEntityID
+    WHERE BirthDate = (
+      SELECT MIN(BirthDate) 
+      FROM HumanResources.Employee 
+    )
+");
+
+
